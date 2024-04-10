@@ -1,6 +1,6 @@
 ﻿namespace WFClient
 {
-    partial class Form1
+    partial class WFClient
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,10 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 500);
-            this.Text = "WFClient";
+            SuspendLayout();
+            // 
+            // WFClient
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(400, 300);
+            Name = "WFClient";
+            Text = "WFClient";
+            ResumeLayout(false);
         }
 
         #endregion
