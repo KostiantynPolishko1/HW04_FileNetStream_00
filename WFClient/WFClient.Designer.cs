@@ -35,6 +35,8 @@
             btnSend = new Button();
             lbName = new Label();
             openFileDialogImg = new OpenFileDialog();
+            lbIpServer = new Label();
+            lbIpClient = new Label();
             ((System.ComponentModel.ISupportInitialize)prBxSelect).BeginInit();
             SuspendLayout();
             // 
@@ -52,7 +54,7 @@
             lbSizeMb.AutoSize = true;
             lbSizeMb.Location = new Point(190, 250);
             lbSizeMb.Name = "lbSizeMb";
-            lbSizeMb.Size = new Size(34, 20);
+            lbSizeMb.Size = new Size(50, 20);
             lbSizeMb.TabIndex = 1;
             lbSizeMb.Text = "Mb:";
             // 
@@ -61,7 +63,7 @@
             lbSizeWxH.AutoSize = true;
             lbSizeWxH.Location = new Point(190, 280);
             lbSizeWxH.Name = "lbSizeWxH";
-            lbSizeWxH.Size = new Size(71, 20);
+            lbSizeWxH.Size = new Size(50, 20);
             lbSizeWxH.TabIndex = 2;
             lbSizeWxH.Text = "SizeWxH:";
             // 
@@ -84,13 +86,14 @@
             btnSend.TabIndex = 4;
             btnSend.Text = "SEND";
             btnSend.UseVisualStyleBackColor = true;
+            btnSend.Click += btnSend_Click;
             // 
             // lbName
             // 
             lbName.AutoSize = true;
             lbName.Location = new Point(190, 220);
             lbName.Name = "lbName";
-            lbName.Size = new Size(49, 20);
+            lbName.Size = new Size(50, 20);
             lbName.TabIndex = 5;
             lbName.Text = "Name";
             // 
@@ -98,11 +101,31 @@
             // 
             openFileDialogImg.FileName = "openFileDialogImg";
             // 
+            // lbIpServer
+            // 
+            lbIpServer.AutoSize = true;
+            lbIpServer.Location = new Point(10, 250);
+            lbIpServer.Name = "lbIpServer";
+            lbIpServer.Size = new Size(50, 20);
+            lbIpServer.TabIndex = 6;
+            lbIpServer.Text = "IpServer";
+            // 
+            // lbIpClient
+            // 
+            lbIpClient.AutoSize = true;
+            lbIpClient.Location = new Point(10, 280);
+            lbIpClient.Name = "lbIpClient";
+            lbIpClient.Size = new Size(50, 20);
+            lbIpClient.TabIndex = 7;
+            lbIpClient.Text = "IpClient";
+            // 
             // WFClient
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(400, 310);
+            Controls.Add(lbIpClient);
+            Controls.Add(lbIpServer);
             Controls.Add(lbName);
             Controls.Add(btnSend);
             Controls.Add(btnSelect);
@@ -126,5 +149,7 @@
         private Button btnSend;
         private Label lbName;
         private OpenFileDialog openFileDialogImg;
+        private Label lbIpServer;
+        private Label lbIpClient;
     }
 }
