@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Xml.Linq;
 using System.Xml.Schema;
 
 
@@ -29,6 +30,11 @@ namespace CLServer
 
                             if (msg?.ToLower() == "exit") { break; }
                             Console.WriteLine($"FromClient msg: {msg}");
+
+                            using (FileStream fs = File.Open(msg, FileMode.OpenOrCreate))
+                            {
+                               netStream?.CopyToAsync(fs);
+                            }
                         }
                     }
                 }

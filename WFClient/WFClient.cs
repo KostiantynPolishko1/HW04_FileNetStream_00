@@ -12,12 +12,13 @@ namespace WFClient
         private const int imgMaxSizeBt = 1048576;
         private FileStream? imgStream;
         private SocketClient? socketClient;
+        private NetworkStream? netStream;
         private StreamWriter? sWriter;
 
         public WFClient()
         {
             InitializeComponent();
-            if (!createClient() || !Extensions.createStreamWriter(socketClient, out sWriter))
+            if (!createClient() || !Extensions.createNetStream(socketClient, out netStream) || !Extensions.createStreamWriter(netStream, out sWriter))
             {
                 MessageBox.Show("Reopen Client!");
                 Environment.Exit(0);
@@ -82,6 +83,7 @@ namespace WFClient
 
             if (imgStream?.Length != 0) { imgStream?.Dispose(); }
             sWriter?.Close();
+            netStream?.Close();
             socketClient?.Close();
         }
 
@@ -95,10 +97,15 @@ namespace WFClient
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            sWriter?.WriteLine(lbName.Text);
+            string msg = lbName.Text.Substring(lbName.Text.IndexOf(":") + 2, lbName.Text.Length - lbName.Text.IndexOf(":") - 2);
+            sWriter?.WriteLine(msg);
             sWriter?.Flush();
 
-
+            if (netStream != null) 
+            { 
+                File.OpenRead(openFileDialogImg.FileName).CopyToAsync(netStream);
+                netStream.Flush();
+            }           
         }
     }
 }
