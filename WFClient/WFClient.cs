@@ -5,8 +5,8 @@ namespace WFClient
     public partial class WFClient : Form
     {
         private ImgApp imgApp;
-        private const int imgSizePx = 500;
-        private const int imgSizeBt = 2 ^ 20;
+        private const int imgMaxSizePx = 500;
+        private const int imgMaxSizeBt = 1048576;
         private FileStream? imgStream;
         public WFClient()
         {
@@ -16,7 +16,7 @@ namespace WFClient
             openFileDialogImg.InitialDirectory = imgApp.path;
 
             imgStream = imgApp.fsImgs[imgApp.imgNames.First()];
-            setImgInfo();
+            setImgInfo(Image.FromStream(imgStream));
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
@@ -26,14 +26,19 @@ namespace WFClient
             if (imgStream?.Length != 0) { imgStream?.Dispose(); }
 
             imgStream = (FileStream)openFileDialogImg.OpenFile();
-
-            setImgInfo();
-        }
-
-        private void setImgInfo()
-        {
             Image imgX = Image.FromStream(imgStream);
 
+            setImgInfo(imgX);
+            if (isImgRequirements(imgX)) { btnSend.Enabled = true; }
+            else 
+            { 
+                btnSend.Enabled = false;
+                MessageBox.Show($"Img is out size WxH{imgMaxSizePx}x{imgMaxSizePx} : Byte{imgMaxSizeBt}");
+            }
+        }
+
+        private void setImgInfo(Image imgX)
+        {           
             prBxSelect.Image = imgX;
 
             lbSizeMb.Text = $"Byte: {imgStream?.Length}";
@@ -43,6 +48,14 @@ namespace WFClient
         private void WFClient_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (imgStream?.Length != 0) { imgStream?.Dispose(); }
+        }
+
+        private bool isImgRequirements(Image imgX)
+        {
+            if (imgX.Width > imgMaxSizePx || imgX.Height > imgMaxSizePx) return false;
+            else if (imgStream?.Length > imgMaxSizeBt) return false;
+
+            return true;
         }
     }
 }
